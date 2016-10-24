@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use App\Contestdatums;
 use App\Participant;
+use Excel;
+
 
 
 class Contest extends Controller
@@ -113,6 +115,25 @@ class Contest extends Controller
             $partisepant->delete();
         };
 
+        return redirect('/contastant');
+    }
+    public  function  download_excelContestant($name){
+
+        if(Contestdatums::where('contestName', $name)->first()){
+            $get_participants = Contestdatums::where('contestName', $name)->first()->participants()->get();
+            Excel::create('contest', function($excel) use($get_participants) {
+
+                $excel->sheet('participants', function($sheet) use($get_participants) {
+
+                    $sheet->fromArray($get_participants);
+
+                });
+
+            })->export('xls');
+        }
+
+
+        // niet nodig maar toch
         return redirect('/contastant');
     }
 

@@ -163,7 +163,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class, //custom
-
+        Maatwebsite\Excel\ExcelServiceProvider::class, //custom
         /*
          * Package Service Providers...
          */
@@ -229,6 +229,7 @@ return [
 
         'Form' => Collective\Html\FormFacade::class, //custop
         'Html' => Collective\Html\HtmlFacade::class, //custom
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class, //custom
 
     ],
 
