@@ -25,6 +25,7 @@ Route::get('/contest_datums/update/{id}','Contest@updateCourenturentContest');
 Route::get('/contest_datums/delete/{id}','Contest@deleteCourenturentContest');
 
 Route::get('/contastant','Contest@showContestant');
+Route::get('/contastant/delete/{id}','Contest@deleteContestant');
 
 //post
 Route::post('/contest_datums','Contest@seCourenturentContest');

@@ -66,7 +66,7 @@ class Contest extends Controller
         return view("admin/update", ['contest' => $contests]);
     }
 
-    public function updateNowCourenturentContest(Request $request,$id)
+    public function updateNowCourenturentContest(Request $request, $id)
     {
         $this->validate($request, [
             'contestName' => 'required|max:255',
@@ -75,7 +75,7 @@ class Contest extends Controller
             'contestType' => 'required',
         ]);
 
-        $contests = Contestdatums::find(16);
+        $contests = Contestdatums::find($id);
         $contests->contestName = $request->contestName;
         $contests->contestDateStart = $request->contestDateStart;
         $contests->contestDateEnd = $request->contestDateEnd;
@@ -87,17 +87,33 @@ class Contest extends Controller
 
     public function deleteCourenturentContest($id)
     {
+        if ($contests = Contestdatums::find($id)) {
+            $contests->delete();
+        }
 
-        $contests = Contestdatums::find($id);
-        $contests->delete();
 
         return redirect("/contest_datums");
 
     }
 
-    public  function  showContestant(){
-        //comit
-        return Contestdatums::find(1)->participants()->get();
+    public function showContestant()
+    {
+        $array = [];
+        $contests = Contestdatums::all();
+        foreach ($contests as $contest) {
+            //return Contestdatums::find($contest->id)->participants()->get();
+            $array = array_add($array, $contest->contestName, Contestdatums::find($contest->id)->participants()->get());
+        }
+        return view("admin/users", ['contests' => $array]);
+    }
+
+    public function deleteContestant($id)
+    {
+        if ($partisepant = Participant::find($id)) {
+            $partisepant->delete();
+        };
+
+        return redirect('/contastant');
     }
 
 }

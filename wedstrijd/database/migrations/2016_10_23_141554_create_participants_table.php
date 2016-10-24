@@ -19,6 +19,7 @@ class CreateParticipantsTable extends Migration
             $table->string('name');
             $table->string('adres');
             $table->string('location');
+            $table->string('email');
             $table->softDeletes();
             $table->integer('Contestdatums_id')->unsigned();
             $table->foreign('Contestdatums_id')

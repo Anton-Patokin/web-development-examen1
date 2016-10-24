@@ -2,7 +2,8 @@
 
 @section('content')
 
-    @if($contests)
+    @if(! empty($contests) && count($contests) > 0)
+        <h1>Contests</h1>
         <table class="table">
             <thead>
             <tr>
@@ -33,6 +34,7 @@
         <h1>Add contest</h1>
     @endif
 
+    <hr>
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <ul>
@@ -53,7 +55,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     {{Form::label('contestDateStart', 'Start date', ['class' => 'awesome'])}}
-                    {{Form::date('contestDateStart', \Carbon\Carbon::now()->format('d-m-Y'),['class' => 'form-control'])}}
+                    {{Form::date('contestDateStart', \Carbon\Carbon::now(),['class' => 'form-control'])}}
                 </div>
                 <div class="form-group col-md-6">
                     <p>Choose type of contest</p>
@@ -72,7 +74,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     {{Form::label('contestDateEnd', 'End date', ['class' => 'awesome'])}}
-                    {{Form::date('contestDateEnd', \Carbon\Carbon::now()->format('d-m-Y'),['class' => 'form-control'])}}
+                    {{Form::date('contestDateEnd', \Carbon\Carbon::now(),['class' => 'form-control'])}}
                 </div>
                 <div class="col-md-12">
                     {{Form::submit('Click Me!',['class' => 'btn btn-primary'])}}
