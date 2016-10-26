@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 class partisepants extends Seeder{
     public  function  run(){
         DB::table('participants')->delete();
@@ -13,23 +11,9 @@ class partisepants extends Seeder{
                 'adres'=>'de bosscheartstraat 22',
                 'location'=>'antwerpen',
                 'email'=>'paraplu@list.ru',
-                'Contestdatums_id'=>'16'
             )
         );
 
         DB::table('participants')->insert($partisepants);
-    }
-}
-
-class DatabaseSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        $this->call(partisepants::class);
     }
 }

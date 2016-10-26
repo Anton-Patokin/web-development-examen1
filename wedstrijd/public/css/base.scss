@@ -21,6 +21,18 @@
     color: #fff;
   }
 }
+$grade: -35deg;
+.win-prizes{
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: -100px;
+  margin-left: -125px;
+  opacity: 0.9;
+  -ms-transform: rotate($grade); /* IE 9 */
+  -webkit-transform: rotate($grade); /* Chrome, Safari, Opera */
+  transform: rotate($grade);
+}
 .img-banner{
   position: absolute;
   max-width: 100%;
@@ -32,6 +44,19 @@
 }
 .prizes{
   text-align: left;
+}
+.play{
+
+    position: absolute;
+    max-width: 50%;
+    min-height: 50%;
+    bottom: 0;
+    right: 0;
+
+}
+.prizes-list{
+
+margin-top: 50px;
 }
 
 #app{
