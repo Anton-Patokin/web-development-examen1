@@ -24,10 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         if($partisepants= Participant::inRandomOrder()->take(10)->get()){
 
         }
         return view('welcome',['partisipants'=>$partisepants]);
     }
+    
 }

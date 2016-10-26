@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="container banner-code">
     @if(! empty($contests) && count($contests) > 0)
         <h1>Contests</h1>
         <table class="table">
@@ -52,7 +52,8 @@
 
     @if(count($contests) < 4)
         <div class="row">
-            <div class="col-md-12">{{Form::open(['url' => 'contest_datums'])}}
+            <div class="col-md-12">
+                {{Form::open(['url' => 'contest_datums'])}}
                 {{Form::token()}}
                 <div class="form-group col-md-6">
                     {{Form::label('contestName', 'Contest name', ['class' => 'awesome'])}}
@@ -90,5 +91,5 @@
         @endif
 
 
-
+</div>
 @endsection

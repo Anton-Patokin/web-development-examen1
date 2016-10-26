@@ -15,8 +15,7 @@ Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
-Route::get('/wedstrijd', 'HomeController@index');
+Route::get('/home', 'HomeController@index');Route::get('/wedstrijd', 'HomeController@index');
 Route::get('/contest_datums','Contest@index');
 
 Route::get('/contest_datums/update/{id}','Contest@updateCourenturentContest');
@@ -30,6 +29,9 @@ Route::get('/contastant/download_excel/{name}','Contest@download_excelContestant
 Route::get('/test','Contest@test');
 
 
+
+
+
 //contest vieuw
 Route::get('/play-contest','PlayController@index');
 
@@ -39,3 +41,7 @@ Route::get('/play-contest','PlayController@index');
 Route::post('/contest_datums','Contest@seCourenturentContest');
 
 Route::post('/contest_datums/update/id/{id}','Contest@updateNowCourenturentContest');
+
+Route::post('/apartisipan-information', 'PlayController@code');
+Route::get('/apartisipan-information', 'PlayController@show_Partisipant_vieuw');
+Route::post('/apartisipan-information/{code_view}', 'PlayController@logica');
