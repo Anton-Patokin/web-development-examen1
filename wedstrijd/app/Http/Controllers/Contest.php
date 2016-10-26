@@ -9,16 +9,22 @@ use App\Http\Requests;
 use App\Contestdatums;
 use App\Participant;
 use Excel;
-
+use App\Classes\timeClasses;
 
 
 class Contest extends Controller
 {
     use FormAccessible;
 
+    public function test()
+    {
+
+    }
+
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('isAdmin');
     }
 
     public function index()
@@ -37,14 +43,19 @@ class Contest extends Controller
             'contestType' => 'required',
         ]);
 
-        $contests = Contestdatums::all();
-        if (count($contests) < 4) {
-            $Contestdatum = new Contestdatums;
-            $Contestdatum->contestName = $request->contestName;
-            $Contestdatum->contestDateStart = $request->contestDateStart;
-            $Contestdatum->contestDateEnd = $request->contestDateEnd;
-            $Contestdatum->contestType = $request->contestType;
-            $Contestdatum->save();
+        $pricesClass = new timeClasses();
+        $bool = $pricesClass->validateDate($request->contestDateStart,$request->contestDateEnd,0);
+        //return $bool ? 'true' : 'false';
+        if($bool){
+            $contests = Contestdatums::all();
+            if (count($contests) < 4) {
+                $Contestdatum = new Contestdatums;
+                $Contestdatum->contestName = $request->contestName;
+                $Contestdatum->contestDateStart = $request->contestDateStart;
+                $Contestdatum->contestDateEnd = $request->contestDateEnd;
+                $Contestdatum->contestType = $request->contestType;
+                $Contestdatum->save();
+            }
         }
         return redirect("/contest_datums");
     }
@@ -77,12 +88,19 @@ class Contest extends Controller
             'contestType' => 'required',
         ]);
 
-        $contests = Contestdatums::find($id);
-        $contests->contestName = $request->contestName;
-        $contests->contestDateStart = $request->contestDateStart;
-        $contests->contestDateEnd = $request->contestDateEnd;
-        $contests->contestType = $request->contestType;
-        $contests->save();
+
+        $pricesClass = new timeClasses();
+        $bool = $pricesClass->validateDate($request->contestDateStart,$request->contestDateEnd,$id);
+        //return $bool ? 'true' : 'false';
+        if($bool){
+            $contests = Contestdatums::find($id);
+            $contests->contestName = $request->contestName;
+            $contests->contestDateStart = $request->contestDateStart;
+            $contests->contestDateEnd = $request->contestDateEnd;
+            $contests->contestType = $request->contestType;
+            $contests->save();
+        }
+
         return redirect("/contest_datums");
     }
 

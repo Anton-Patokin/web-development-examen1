@@ -45,6 +45,11 @@
         </div>
     @endif
 
+
+    @if(Session::has('message'))
+        <p class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissable"> {{ Session::get('message') }}</p>
+    @endif
+
     @if(count($contests) < 4)
         <div class="row">
             <div class="col-md-12">{{Form::open(['url' => 'contest_datums'])}}
@@ -65,8 +70,8 @@
                     {{ Form::radio('contestType', 'Foto', false,['class' => 'field']) }}
                     {{Form::label('contestType', 'Foto', ['class' => 'awesome'])}}
 
-                    {{ Form::radio('contestType', 'Google maps', false,['class' => 'field']) }}
-                    {{Form::label('contestType', 'Google maps', ['class' => 'awesome'])}}
+                    {{ Form::radio('contestType', 'Google-maps', false,['class' => 'field']) }}
+                    {{Form::label('contestType', 'Google-maps', ['class' => 'awesome'])}}
 
                     {{ Form::radio('contestType', 'Surprise', false,['class' => 'field']) }}
                     {{Form::label('contestType', 'Surprise', ['class' => 'awesome'])}}

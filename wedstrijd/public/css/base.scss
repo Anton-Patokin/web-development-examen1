@@ -1,0 +1,62 @@
+.banner{
+  min-height: 600px;
+  min-width: 100%;
+  background-color: #333333;
+  color: #fff;
+  margin-top: 150px;
+ text-align: center;
+
+
+  h1{
+    background-color: #333;
+    color: #ac2925;
+    text-transform: uppercase;
+    padding-top: 25px;
+    padding-bottom: 25px;
+
+    border: 10px solid #333;
+  }
+  hr{
+    background-color: #fff;
+    color: #fff;
+  }
+}
+.img-banner{
+  position: absolute;
+  max-width: 100%;
+  min-height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.prizes{
+  text-align: left;
+}
+
+#app{
+  .navbar{
+
+    background-color: #333333;
+
+
+    font-size: 1.5em;
+    a{
+      text-transform: uppercase;
+      padding-top: 25px;
+
+      min-height: 75px;
+      color: rgba(255,255,255,.7);
+
+      &:hover{
+        background-color: rgba(255,255,255,.2);
+        color: rgba(255,255,255,1);
+      }
+    }
+    .navbar-brand{
+      color: #ac2925;
+      font-size: 1.5em;
+    }
+  }
+
+}

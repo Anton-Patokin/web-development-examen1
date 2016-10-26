@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
@@ -27,6 +25,15 @@ Route::get('/contest_datums/delete/{id}','Contest@deleteCourenturentContest');
 Route::get('/contastant','Contest@showContestant');
 Route::get('/contastant/delete/{id}','Contest@deleteContestant');
 Route::get('/contastant/download_excel/{name}','Contest@download_excelContestant');
+
+
+Route::get('/test','Contest@test');
+
+
+//contest vieuw
+Route::get('/play-contest','PlayController@index');
+
+
 
 //post
 Route::post('/contest_datums','Contest@seCourenturentContest');

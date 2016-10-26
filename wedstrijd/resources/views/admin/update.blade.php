@@ -35,8 +35,8 @@
                     {{ Form::radio('contestType', 'Foto', ($contest->contestType == "Foto" ? true : false),['class' => 'field']) }}
                     {{Form::label('contestType', 'Foto', ['class' => 'awesome'])}}
 
-                    {{ Form::radio('contestType', 'Google maps', ($contest->contestType == "Google maps" ? true : false),['class' => 'field']) }}
-                    {{Form::label('contestType', 'Google maps', ['class' => 'awesome'])}}
+                    {{ Form::radio('contestType', 'Google-maps', ($contest->contestType == "Google maps" ? true : false),['class' => 'field']) }}
+                    {{Form::label('contestType', 'Google-maps', ['class' => 'awesome'])}}
 
                     {{ Form::radio('contestType', 'Surprise', ($contest->contestType == "Surprise" ? true : false),['class' => 'field']) }}
                     {{Form::label('contestType', 'Surprise', ['class' => 'awesome'])}}
@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     {{Form::label('contestDateEnd', 'End date', ['class' => 'awesome'])}}
-                    {{Form::date('contestDateEnd', $contest->contestDateStart,['class' => 'form-control'])}}
+                    {{Form::date('contestDateEnd', $contest->contestDateEnd,['class' => 'form-control'])}}
                 </div>
                 <div class="col-md-12">
                     {{Form::submit('Click Me!',['class' => 'btn btn-primary'])}}
