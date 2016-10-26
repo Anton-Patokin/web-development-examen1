@@ -1,23 +1,31 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class partisepants extends Seeder{
     public  function  run(){
         DB::table('participants')->delete();
 
-        $partisepants = array(
-            array(
-                'ipAdres'=>'192.36.58.12',
-                'name'=>'paraplu',
-                'adres'=>'de bosscheartstraat 22',
-                'location'=>'antwerpen',
-                'email'=>'paraplu@list.ru',
-                'Contestdatums_id'=>'16'
-            )
-        );
+        $faker= Faker::create();
 
-        DB::table('participants')->insert($partisepants);
+
+        for($i=0;$i<50;$i++){
+            $partisepants = array(
+                array(
+                    'ipAdres'=>'192.36.58.12',
+                    'name'=>$faker->name,
+                    'adres'=>$faker->address,
+                    'location'=>$faker->country,
+                    'email'=>$faker->email,
+                    'Contestdatums_id'=>$faker->numberBetween(1,20),
+                    'created_at'=>\Carbon\Carbon::now(),
+                    'updated_at'=>\Carbon\Carbon::now(),
+                    )
+            );
+
+            DB::table('participants')->insert($partisepants);
+        }
     }
 }
 
