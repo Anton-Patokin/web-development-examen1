@@ -21,10 +21,7 @@ class CreateParticipantsTable extends Migration
             $table->string('location');
             $table->string('email');
             $table->softDeletes();
-            $table->integer('Contestdatums_id')->unsigned();
-            $table->foreign('Contestdatums_id')
-                ->references('id')->on('Contestdatums')
-                ->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

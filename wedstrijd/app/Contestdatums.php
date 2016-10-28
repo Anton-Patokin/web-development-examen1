@@ -12,7 +12,7 @@ class Contestdatums extends Model
 
     public function participants()
     {
-        return $this->hasMany('App\Participant');
+        return $this->belongsToMany('App\Participant');
     }
 
 

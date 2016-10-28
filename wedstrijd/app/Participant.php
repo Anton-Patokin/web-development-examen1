@@ -11,9 +11,9 @@ class Participant extends Model
     use SoftDeletes;
     //
 
-    public function participants()
+    public function contestDatum()
     {
-        return $this->hasOne('App\Contestdatums');
+        return $this->belongsToMany('App\Contestdatum');
     }
 
 

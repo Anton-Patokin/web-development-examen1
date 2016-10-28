@@ -1,0 +1,89 @@
+body {
+  background: url(../image/s2WyVe.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+
+.banner-code {
+  background-color: #fff;
+  color: #333; }
+  .banner-code h1 {
+    text-align: center; }
+  .banner-code p {
+    text-align: center; }
+  .banner-code h2 {
+    padding-top: 150px; }
+
+.banner {
+  min-height: 600px;
+  min-width: 100%;
+  background-color: #333333;
+  color: #fff;
+  margin-top: 150px;
+  text-align: center; }
+  .banner h1 {
+    background-color: #333;
+    color: #ac2925;
+    text-transform: uppercase;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border: 10px solid #333; }
+  .banner hr {
+    background-color: #fff;
+    color: #fff; }
+
+.win-prizes {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: -100px;
+  margin-left: -125px;
+  opacity: 0.9;
+  -ms-transform: rotate(-35deg);
+  /* IE 9 */
+  -webkit-transform: rotate(-35deg);
+  /* Chrome, Safari, Opera */
+  transform: rotate(-35deg); }
+
+.img-banner {
+  position: absolute;
+  max-width: 100%;
+  min-height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+
+.prizes {
+  text-align: left; }
+
+.play {
+  position: absolute;
+  max-width: 50%;
+  min-height: 50%;
+  bottom: 0;
+  right: 0; }
+
+.prizes-list {
+  margin-top: 50px; }
+
+#app .navbar {
+  background-color: #333333;
+  border: 1px solid #333;
+  font-size: 1.5em; }
+  #app .navbar a {
+    text-transform: uppercase;
+    padding-top: 25px;
+    min-height: 75px;
+    color: rgba(255, 255, 255, 0.7); }
+    #app .navbar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white; }
+  #app .navbar .navbar-brand {
+    color: #ac2925; }
+    #app .navbar .navbar-brand img {
+      margin-top: -10px;
+      max-height: 50px; }
+
+/*# sourceMappingURL=base.css.map */

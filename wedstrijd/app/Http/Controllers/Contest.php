@@ -118,6 +118,9 @@ class Contest extends Controller
 
     public function showContestant()
     {
+
+
+        return Contestdatums::find(1)->participants()->get();
         $array = [];
         $contests = Contestdatums::all();
         foreach ($contests as $contest) {
