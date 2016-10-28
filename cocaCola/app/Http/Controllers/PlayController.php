@@ -6,24 +6,66 @@ use Illuminate\Http\Request;
 use App\Contest;
 use App\Classes\order_contest;
 use App\Participant;
-
-
+use Illuminate\Support\Facades\Session;
 
 class PlayController extends Controller
 {
 
+    protected $_contest;
+
+    public function __construct()
+    {
+        $this->_contest = new order_contest();
+
+        $this->middleware('auth');
+//        $this->middleware('isAdmin');
+    }
+
     public function index()
     {
-        $contest = new order_contest();
-        $project = $contest->get_contest();
 
-        if (!($project)) {
+
+        if (!($project = $this->_contest->get_contest())) {
             return redirect('/');
         }
         return view('/play/' . $project->type, ['contest' => $project]);
 
         //return view('/play/play-contest', ['wedstrijd' => Contestdatums::all()]);
     }
+
+    public function play_code(Request $request)
+    {
+
+
+        //return  $request->ip();
+        if (!($project = $this->_contest->get_contest()) || count(Participant::where('ip_adres', $request->ip())->get())) {
+            Session::flash('message', 'you may participate only once');
+            return redirect('/');
+        }
+
+
+        $this->validate($request, [
+            'code' => 'required|max:6|min:6',
+            'name' => 'required|max:100',
+            'email' => 'required|email|max:255|unique:participants',
+            'address' => 'required|max:255',
+            'location' => 'required',
+        ]);
+
+
+        $partisipant = new Participant();
+        $partisipant->ip_adres = $request->ip();
+        $partisipant->name = $request->name;
+        $partisipant->address = $request->address;
+        $partisipant->location = $request->location;
+        $partisipant->email = $request->email;
+
+        $project->participants()->save($partisipant);
+
+        Session::flash('succes', 'Thank you for participating, We will contact the winners by email');
+        return back();
+    }
+
 
 //    public function code(Request $request)
 //    {
@@ -62,5 +104,5 @@ class PlayController extends Controller
 
         return redirect('/');
     }
-    
+
 }

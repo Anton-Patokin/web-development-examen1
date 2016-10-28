@@ -38,6 +38,7 @@ Route::get('/play-contest','PlayController@index');
 
 
 //post
+Route::post('/play_contest/code','PlayController@play_code');
 Route::post('/contest_datums','Contest_admin@seCourenturentContest');
 
 Route::post('/contest_datums/update/id/{id}','Contest_admin@updateNowCourenturentContest');

@@ -60,7 +60,7 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="{{ url('/play-contest') }}">play contest</a></li>
+                    <li><a class="{{ Request::is('play-contest') ? 'active' : '' }}" href="{{ url('/play-contest') }}">play contest</a></li>
                     @if ( Auth::check() && Auth::user()->admin == 1)
                         <li><a href="{{ url('/contest') }}">Contest</a></li>
                         <li><a href="{{ url('/contastant') }}">Contastant</a></li>

@@ -21,10 +21,11 @@ class Contest_admin extends Controller
 //
 //    }
 
-protected $_mijnNieuweClass;
+    protected $_mijnNieuweClass;
+
     public function __construct()
     {
-        $this->_mijnNieuweClass=  new timeClasses();
+        $this->_mijnNieuweClass = new timeClasses();
         $pricesClass = new timeClasses();
         $this->middleware('auth');
 //        $this->middleware('isAdmin');
@@ -118,8 +119,6 @@ protected $_mijnNieuweClass;
 
     public function showContestant()
     {
-
-
 
 
         $array = [];

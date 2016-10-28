@@ -5,10 +5,12 @@
         <img class="img-banner" src="image/bakground.png">
         <div class="row">
             <div class="col-md-12 banner">
-
+                @if(Session::has('message'))
+                    <p class="alert message {{ Session::get('alert-class', 'alert-danger') }} alert-dismissable"><strong>Info!</strong> {{ Session::get('message') }}</p>
+                @endif
                 <img class="win-prizes" src="image/win-prizes.png">
                 <h1>
-                    Play with our contests and win beathefull prices
+                    Join our contests and win beautiful prices!!!
                 </h1>
 
                 <div class="col-md-8 prizes">
