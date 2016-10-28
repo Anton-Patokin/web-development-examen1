@@ -11,19 +11,18 @@
     <title>wedstrijd</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"--}}
+    {{--integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--}}
 
 
-    <link href="{{url('/css/base.css')}}" rel="stylesheet">
-
-    <!-- Scripts -->
+            <!-- Scripts -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
 
     <script src="js/app.js"></script>
+    <link href="{{url('/css/base.css')}}" rel="stylesheet">
     <script>
         window.Laravel = <?php echo json_encode([
                 'csrfToken' => csrf_token(),
@@ -60,15 +59,25 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a class="{{ Request::is('play-contest') ? 'active' : '' }}" href="{{ url('/play-contest') }}">play contest</a></li>
+                    <li class="{{ Request::is('play-contest') ? 'active' : '' }}">
+                        <a href="{{ url('/play-contest') }}">play contest</a>
+                    </li>
                     @if ( Auth::check() && Auth::user()->admin == 1)
-                        <li><a href="{{ url('/contest') }}">Contest</a></li>
-                        <li><a href="{{ url('/contastant') }}">Contastant</a></li>
+                        <li class="{{ Request::is('contest') ? 'active' : '' }}">
+                            <a href="{{ url('/contest') }}">Contest</a>
+                        </li>
+                        <li class="{{ Request::is('contastant') ? 'active' : '' }}">
+                            <a href="{{ url('/contastant') }}">Contastant</a>
+                        </li>
                         @endif
                                 <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
+                            <li class="{{ Request::is('login') ? 'active' : '' }}">
+                                <a href="{{ url('/login') }}">Login</a>
+                            </li>
+                            <li class="{{ Request::is('register') ? 'active' : '' }}">
+                                <a href="{{ url('/register') }}">Register</a>
+                            </li>
                         @else
 
 

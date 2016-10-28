@@ -1,3 +1,4 @@
+@import 'bootstrap';
 body {
 
   background: url(../image/s2WyVe.png) no-repeat center center fixed;
@@ -6,9 +7,11 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
-.message{
+
+.message {
   font-size: 35px;
 }
+
 .banner-code {
 
   background-color: #fff;
@@ -16,11 +19,9 @@ body {
   h1 {
     text-align: center;
   }
-  p{
+  p {
     text-align: center;
-    &:active{
-      background-color: #;
-    }
+
   }
   h2 {
     padding-top: 150px;
@@ -95,9 +96,8 @@ $grade: -35deg;
 
 #app {
   .navbar {
-
     background-color: #333333;
-    border: 1px solid #333;
+    border: 0px solid #333;
     font-size: 1.5em;
     a {
       text-transform: uppercase;
@@ -107,9 +107,33 @@ $grade: -35deg;
       color: rgba(255, 255, 255, .7);
 
       &:hover {
-        background-color: rgba(255, 255, 255, .2);
+
+        background-color: #e61a27;
+        color: rgba(255, 255, 255, 1);
+        //background-color: rgba(255, 255, 255, .2);
+        //color: rgba(255, 255, 255, 1);
+      }
+
+    }
+    .dropdown-menu{
+      background-color: #333333;
+      select {
+        background-color: #e61a27;
         color: rgba(255, 255, 255, 1);
       }
+    }
+
+    .btn{
+      background-color: #e61a27 ;
+      color: #fff;
+    }
+
+
+
+
+    li.active a{
+      background-color: #e61a27;
+      color: rgba(255, 255, 255, 1);
     }
     .navbar-brand {
       color: #ac2925;
@@ -122,3 +146,7 @@ $grade: -35deg;
   }
 
 }
+
+
+
+
