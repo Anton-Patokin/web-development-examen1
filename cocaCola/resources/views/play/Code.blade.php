@@ -3,18 +3,22 @@
 @section('content')
     <div class="container banner-code">
 
+
+        <div class="row panel-cocacola">
+            <div class="col-md-12 ">
+                <h1>
+                    Enter the code
+                </h1>
+
+
+
+                @if(Session::has('succes'))
+                    <p class="alert message  {{ Session::get('alert-class', 'alert-success') }} alert-dismissable">{{ Session::get('succes') }}</p>
+                @endif
+            </div>
+        </div>
         <div class="row ">
             <div class="col-md-12 ">
-
-                <div class="col-md-12">
-                    <h1>
-                        Enter the code
-                    </h1>
-                    <hr>
-                    @if(Session::has('succes'))
-                        <p class="alert message  {{ Session::get('alert-class', 'alert-success') }} alert-dismissable">{{ Session::get('succes') }}</p>
-                    @endif
-                </div>
                 <div class="col-md-6">
                     <img src="image/code.png">
                 </div>

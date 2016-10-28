@@ -6,7 +6,8 @@
         <div class="row">
             <div class="col-md-12 banner">
                 @if(Session::has('message'))
-                    <p class="alert message {{ Session::get('alert-class', 'alert-danger') }} alert-dismissable"><strong>Info!</strong> {{ Session::get('message') }}</p>
+                    <p class="alert message {{ Session::get('alert-class', 'alert-danger') }} alert-dismissable">
+                        <strong>Info!</strong> {{ Session::get('message') }}</p>
                 @endif
                 <img class="win-prizes" src="image/win-prizes.png">
                 <h1>
@@ -20,7 +21,8 @@
                     {{--</div>--}}
                     @for ($i = 1; $i < 7; $i++)
                         <div class="col-lg-4">
-                            <a href="{{url('/play-contest')}}"> <img class="{{$i> 3 ? 'prizes-list' : ''}}" src="image/peizes{{$i}}.png"></a>
+                            <a href="{{url('/play-contest')}}"> <img class="{{$i> 3 ? 'prizes-list' : ''}}"
+                                                                     src="image/peizes{{$i}}.png"></a>
                         </div>
                     @endfor
 
@@ -33,6 +35,31 @@
                     @endforeach
                 </div>
                 <a href="{{url('/play-contest')}}"><img class="play" src="image/play.png"></a>
+            </div>
+        </div>
+        <div class="row banner-contests">
+            <div class="col-md-12 banner">
+                <h1><strong>4</strong> seasons, <strong>4</strong> different contests</h1>
+
+                @foreach($contests as $contest)
+
+                    <div class="col-sm-6 col-md-3 float-left">
+                        <div class="thumbnail">
+                            <img src="{{url('/image/contests/'.$contest->type.'.png')}}" alt="{{$contest->name}}">
+                            <div class="caption">
+                                <h3>{{$contest->name}}</h3>
+                                <p>This contest starts at {{$contest->date_start}} and end at {{$contest->date_end}}</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                @endforeach
+                <div class="col-md-12">
+                    <p><a href="{{url('/play-contest')}}" class="btn btn-primary" role="button">play current contest</a>
+                    </p>
+                </div>
+
             </div>
         </div>
     </div>

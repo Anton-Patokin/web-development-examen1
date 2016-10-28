@@ -58,7 +58,9 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
-
+                    <li class="{{ Request::is('/') ? 'active' : '' }}">
+                        <a href="{{ url('/') }}">home</a>
+                    </li>
                     <li class="{{ Request::is('play-contest') ? 'active' : '' }}">
                         <a href="{{ url('/play-contest') }}">play contest</a>
                     </li>

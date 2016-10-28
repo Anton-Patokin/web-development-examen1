@@ -28,7 +28,8 @@ class HomeController extends Controller
         if(!($partisepants= Participant::inRandomOrder()->take(10)->get())){
             return view('welcome',['partisipants'=>""]);
         }
-        return view('welcome',['partisipants'=>$partisepants]);
+        $contests =Contest::all();
+        return view('welcome',['partisipants'=>$partisepants,'contests'=>$contests]);
     }
     public function test(){
         return Contest::find(1)->participants()->get();

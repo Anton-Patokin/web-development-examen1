@@ -26,6 +26,7 @@ class PlayController extends Controller
 
 
         if (!($project = $this->_contest->get_contest())) {
+            Session::flash('message', 'Sorry but today there are no contests. Check play date at the bottom of the page.');
             return redirect('/');
         }
         return view('/play/' . $project->type, ['contest' => $project]);

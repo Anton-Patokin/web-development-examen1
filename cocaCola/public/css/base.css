@@ -5633,6 +5633,7 @@ body {
   font-size: 35px; }
 
 .banner-code {
+  margin-top: 50px;
   background-color: #fff;
   color: #333; }
   .banner-code h1 {
@@ -5649,7 +5650,8 @@ body {
   color: #fff;
   margin-top: 150px;
   text-align: center;
-  padding-bottom: 100px; }
+  padding-bottom: 100px;
+  margin-bottom: -100px; }
   .banner h1 {
     background-color: #333;
     color: #ac2925;
@@ -5660,6 +5662,16 @@ body {
   .banner hr {
     background-color: #fff;
     color: #fff; }
+
+.contest-overviuw {
+  background-color: #fff;
+  color: #000; }
+  .contest-overviuw img {
+    height: 100%;
+    width: 100%; }
+
+.float-left {
+  text-align: left; }
 
 .win-prizes {
   position: absolute;
@@ -5713,7 +5725,7 @@ body {
     #app .navbar .dropdown-menu select {
       background-color: #e61a27;
       color: white; }
-  #app .navbar .btn {
+  #app .navbar .btn-cocacola {
     background-color: #e61a27;
     color: #fff; }
   #app .navbar li.active a {
@@ -5724,5 +5736,28 @@ body {
     #app .navbar .navbar-brand img {
       margin-top: -10px;
       max-height: 50px; }
+
+.btn-primary {
+  background-color: #e61a27;
+  color: white;
+  font-size: 25px; }
+
+.panel-default > .panel-heading {
+  background-color: #e61a27;
+  color: white;
+  border: 1px solid #e61a27;
+  font-size: 20px; }
+
+.panel-cocacola {
+  background-color: #e61a27;
+  color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 50px;
+  border: 1px solid #e61a27; }
+
+.form-control:focus {
+  border-color: #e61a27;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6); }
 
 /*# sourceMappingURL=base.css.map */
