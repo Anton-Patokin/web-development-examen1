@@ -77,11 +77,13 @@
                     {{ Form::radio('contestType', 'Surprise', false,['class' => 'field']) }}
                     {{Form::label('contestType', 'Surprise', ['class' => 'awesome'])}}
 
+
                 </div>
                 <div class="form-group col-md-6">
                     {{Form::label('contestDateEnd', 'End date', ['class' => 'awesome'])}}
                     {{Form::date('contestDateEnd', \Carbon\Carbon::now(),['class' => 'form-control'])}}
                 </div>
+                
                 <div class="col-md-12">
                     {{Form::submit('Add',['class' => 'btn btn-primary'])}}
                 </div>

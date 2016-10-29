@@ -63,7 +63,7 @@ class Contest_cronJob extends Command
         $end_contest_date = Carbon::parse($contest_now = $this->_active_Contest->get_contest()->date_end)->startOfDay();
         $today = Carbon::now()->startOfDay()->tomorrow();
         if ($end_contest_date == $today) {
-           $win_partisipants = $this->_active_Contest->get_contest()->participants()->get()->random(1);
+           $win_partisipants = $this->_active_Contest->get_contest()->participants()->get()->random(3);
             echo  $win_partisipants;
             Mail::send('email.winParticipants', ['participants' => $win_partisipants, 'contest'=>$contest_now=$this->_active_Contest->get_contest()], function ($message) {
                 $message->to('paraplu@list.ru', 'paraplu')->subject("test laravel");
