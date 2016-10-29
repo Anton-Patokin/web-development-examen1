@@ -1,0 +1,4 @@
+Starting the Laravel Scheduler
+To start the scheduler itself, we only need to add one cron job on the server (using the crontab -e command), which executes php /path/to/artisan schedule:run every minute in the day
+
+* * * * * php /path/to/artisan schedule:run 1>> /dev/null 2>&1
