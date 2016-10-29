@@ -26,7 +26,7 @@
                     <tr>
                         <th>Ip</th>
                         <th>name</th>
-                        <th>Adres</th>
+                        <th>Address</th>
                         <th>Location</th>
                         <th>Email</th>
                         <th>Delete</th>

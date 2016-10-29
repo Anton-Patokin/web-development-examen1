@@ -12,11 +12,12 @@
 
 
 
-                @if(Session::has('succes'))
-                    <p class="alert message  {{ Session::get('alert-class', 'alert-success') }} alert-dismissable">{{ Session::get('succes') }}</p>
-                @endif
             </div>
         </div>
+        @if(Session::has('succes'))
+            <p class="alert message  {{ Session::get('alert-class', 'alert-success') }} alert-dismissable">{{ Session::get('succes') }}</p>
+        @else
+
         <div class="row ">
             <div class="col-md-12 ">
                 <div class="col-md-6">
@@ -68,5 +69,6 @@
 
             </div>
         </div>
+        @endif
     </div>
 @endsection

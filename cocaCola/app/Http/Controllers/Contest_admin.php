@@ -10,16 +10,14 @@ use App\Contest;
 use App\Participant;
 use Excel;
 use App\Classes\timeClasses;
+use Illuminate\Mail\Mailer;
+use App\Mail\ContestMail;
+use Illuminate\Support\Facades\Mail;
 
 class Contest_admin extends Controller
 {
     use FormAccessible;
 
-
-//    public function test()
-//    {
-//
-//    }
 
     protected $_mijnNieuweClass;
 
@@ -29,6 +27,15 @@ class Contest_admin extends Controller
         $pricesClass = new timeClasses();
         $this->middleware('auth');
 //        $this->middleware('isAdmin');
+    }
+
+    public function test()
+    {
+        //Mailer::to('paraplu@list.ru')->send(new ContestMail());
+//        Mail::send('email.email', ['title' => "paraplu"], function ($message) {
+//            $message->to('paraplu@list.ru', 'paraplu')->subject("test laravel");
+//        });
+        return "test";
     }
 
     public function index()

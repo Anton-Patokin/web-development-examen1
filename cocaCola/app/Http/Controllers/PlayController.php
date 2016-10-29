@@ -39,7 +39,9 @@ class PlayController extends Controller
 
 
         //return  $request->ip();
-        if (!($project = $this->_contest->get_contest()) || count(Participant::where('ip_adres', $request->ip())->get())) {
+
+
+        if (!($project = $this->_contest->get_contest()) || count($this->_contest->get_contest()->participants()->where('ip_adres', $request->ip())->get())) {
             Session::flash('message', 'you may participate only once');
             return redirect('/');
         }
