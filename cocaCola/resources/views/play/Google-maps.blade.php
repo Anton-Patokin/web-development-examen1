@@ -24,7 +24,7 @@
 
             $(function () {
                 var map;
-                var cons_zoom_closup = 12;
+                var cons_zoom_closup = 2;
 
 
                 function initMap() {
@@ -38,17 +38,31 @@
 //                        });
 
 
+
+
                     var mousedUp = false;
                     google.maps.event.addListener(map, 'mousedown', function (event) {
+                        var google_location_lat = event.latLng.lat();
+                        var google_location_lng = event.latLng.lng();
                         mousedUp = false;
                         setTimeout(function () {
                             if (mousedUp === false) {
                                 //do something if the mouse was still down
                                 //after 500ms
-                                console.log("google maps long click");
-                                placeMarker(event.latLng)
+
+                                $("#formModal").modal('show');
+                                $(".ajax_btn").click(function (e) {
+                                    e.preventDefault();
+                                    var name= $("input[name='name']" ).val();
+                                    var address =$("input[name='address']" ).val();
+                                    var location =$("input[name='location']" ).val();
+                                    placeMarker(google_location_lat,google_location_lng,name,address,location);
+                                })
+
+//                                console.log("google maps long click");
+//
                             }
-                        }, 500);
+                        }, 1000);
                     });
                     google.maps.event.addListener(map, 'mouseup', function (event) {
                         mousedUp = true;
@@ -83,8 +97,10 @@
                     }
                 }
 
-                function placeMarker(location) {
+                function placeMarker(lat,lng,name,address,location_persoon) {
+                    var location = {lat:lat,lng:lng};
                     var marker = new google.maps.Marker({
+
                         position: location,
                         map: map
                     });
@@ -93,17 +109,30 @@
                         url: 'play-contest',
                         type: 'POST',
                         data: {
-                            lat: location.lat(),
-                            lng: location.lng()
-                        },
-
-                        success: function (response) {
-                            console.log("post van location is goed doorgekomen", response);
-                        },
-                        error: function () {
-                            console.log("er ging iets fout met post variabelle google maps");
+                            lat: lat,
+                            lng: lng,
+                            name:name,
+                            address:address,
+                            location:location_persoon
                         }
-                    });
+
+//                        success: function (response) {
+//                            console.log("post van location is goed doorgekomen", response);
+//                        },
+//                        error: function () {
+//                            console.log("er ging iets fout met post variabelle google maps");
+//                        }
+                    }).done(function( data ) {
+                        console.log("post van location is goed doorgekomen", data);
+                            }).fail(function(jqXHR, textStatus, errorThrown) {
+                                var responseMsg = jQuery.parseJSON(jqXHR.responseText);
+                                var errorMsg = 'There was a general problem with your request';
+                                if (responseMsg) {
+                                    for(var i =0 ;i< responseMsg.length; i++){
+                                        
+                                    }
+                                }
+                            });
 
                 }
 
@@ -130,6 +159,7 @@
 
 @endsection
 
+
 @section('content')
     <div class="container banner-code">
         <div class="row panel-cocacola">
@@ -145,6 +175,48 @@
         </div>
         <div id="area" class="col-md-12">
             <div id="map"></div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="formModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Fill your personal information </h4>
+                </div>
+                <div class="modal-body">
+
+
+                    {{Form::open(['url' => ''])}}
+                    {{Form::token()}}
+                    <div class="form-group col-md-12">
+                        {{Form::label('name', 'What is your name?', ['class' => 'awesome'])}}
+                        {{ Form::text('name', '', array('class' => 'form-control')) }}
+                    </div>
+                    <div class="form-group col-md-12">
+                        {{Form::label('address', 'What is your address?', ['class' => 'awesome'])}}
+                        {{ Form::text('address', '', array('class' => 'form-control')) }}
+                    </div>
+                    <div class="form-group col-md-12">
+                        {{Form::label('location', 'What is your location', ['class' => 'awesome'])}}
+                        {{ Form::text('location', '', array('class' => 'form-control')) }}
+                    </div>
+                    <div class="col-md-12">
+                        {{Form::submit('Play',['class' => 'btn btn-primary ajax_btn'])}}
+                    </div>
+                    {{Form::close() }}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection

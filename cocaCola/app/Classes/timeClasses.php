@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Session;
 
 class timeClasses
 {
+    
+
     public function validateDate($dateStart, $dateEnd, $id)
     {
         $validate = false;

@@ -8,8 +8,11 @@ use Illuminate\Http\Request;
 use App\Contest;
 use App\Classes\order_contest;
 use App\Participant;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+
+
 
 class PlayController extends Controller
 {
@@ -89,19 +92,61 @@ class PlayController extends Controller
 
     public function google_maps_logica($var)
     {
-        if($var == "pins"){
-           // return Googlelocation::all();
+        if ($var == "pins") {
+            // return Googlelocation::all();
             return $this->_contest->get_contest()->contestgooglelocations()->get();
-            return "okey";
         }
-        return "google maps controller";
+        if ($var == "top10") {
+            return $this->_contest->get_contest()->contestgooglelocations()->get();
+        }
+        return "Now results found";
     }
-    public  function  google_maps_logica_post(Request $request){
 
-        $post = $request->lat;
+    public function google_maps_logica_post(Request $request)
+    {
 
 
-        return  $post;
+
+        $rules = array('lat' => 'required|unique:googlelocations|max:25',
+            'lng' => 'required|unique:googlelocations|max:25',
+            'name'=>'required|max:100','address'=>'required|max:255',
+            'location'=>'required|max:100');
+
+
+//
+//        $validator = Validator::make(Input::all(), $rules);
+//
+//// Validate the input and return correct response
+//        if ($validator->fails()) {
+//            return Response::json(array(
+//                'success' => false,
+//                'errors' => $validator->getMessageBag()->toArray()
+//
+//            ), 400); // 400 being the HTTP code for an invalid request.
+//        }
+//        return Response::json(array('success' => true), 200);
+
+
+        // win location lat 32.317838 lng -90.886714
+        $this->validate($request,$rules);
+
+        return "okey";
+
+
+        if (count(Auth::user()->usergooglelocations()->get()) < "1") {
+            $contest_dystance = new order_contest();
+            $distance = $contest_dystance->DistAB($request->lat, $request->lng, "32.317838", "-90.886714");
+
+            $location = new Googlelocation();
+            $location->lat = $request->lat;
+            $location->lng = $request->lng;
+            $location->contest_id = $this->_contest->get_contest()->id;
+            $location->user_id = Auth::id();
+            $location->distance = floatval($distance);
+            $location->save();
+        }
+
+        return "succes";
     }
 
 }

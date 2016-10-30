@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Collective\Html\Eloquent\FormAccessible;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use App\Contest;
 use App\Participant;
 use Excel;
 use App\Classes\timeClasses;
-use Illuminate\Mail\Mailer;
-use App\Mail\ContestMail;
-use Illuminate\Support\Facades\Mail;
+
 
 class Contest_admin extends Controller
 {
@@ -20,9 +18,11 @@ class Contest_admin extends Controller
 
 
     protected $_mijnNieuweClass;
+    protected $_dystance;
 
     public function __construct()
     {
+
         $this->_mijnNieuweClass = new timeClasses();
         $pricesClass = new timeClasses();
         $this->middleware('auth');
@@ -31,6 +31,8 @@ class Contest_admin extends Controller
 
     public function test()
     {
+
+
         //Mailer::to('paraplu@list.ru')->send(new ContestMail());
 //        Mail::send('email.email', ['title' => "paraplu"], function ($message) {
 //            $message->to('paraplu@list.ru', 'paraplu')->subject("test laravel");
