@@ -10,7 +10,10 @@ class Googlelocation extends Model
     //
     use SoftDeletes;
 
-
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
     
     

@@ -20,6 +20,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Googlelocation');
     }
+    public function get_participant()
+    {
+        return $this->hasOne('App\Participant');
+        
+    }
+
 
 
     protected $fillable = [

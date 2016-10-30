@@ -1,4 +1,5 @@
 @import 'bootstrap';
+
 body {
 
   background: url(../image/s2WyVe.png) no-repeat center center fixed;
@@ -28,6 +29,12 @@ body {
   }
 }
 
+.top10 {
+  padding-bottom: 25px;
+  background-color: #e61a27;
+  color: #fff;
+}
+
 .banner {
   min-height: 100%;
   min-width: 100%;
@@ -53,15 +60,16 @@ body {
   }
 }
 
-.contest-overviuw{
+.contest-overviuw {
   background-color: #fff;
   color: #000;
-  img{
-  height: 100%;
+  img {
+    height: 100%;
     width: 100%;
   }
 }
-.float-left{
+
+.float-left {
   text-align: left;
 }
 
@@ -128,18 +136,17 @@ $grade: -35deg;
       }
 
     }
-    .dropdown-menu{
+    .dropdown-menu {
       background-color: #333333;
       select {
         background-color: #e61a27;
         color: rgba(255, 255, 255, 1);
       }
     }
-    .btn-cocacola{
-      background-color: #e61a27 ;
-        color: #fff;
+    .btn-cocacola {
+      background-color: #e61a27;
+      color: #fff;
     }
-
 
     //.btn{
     //  background-color: #e61a27 ;
@@ -152,11 +159,7 @@ $grade: -35deg;
     //  }
     //}
 
-
-
-
-
-    li.active a{
+    li.active a {
       background-color: #e61a27;
       color: rgba(255, 255, 255, 1);
     }
@@ -172,12 +175,11 @@ $grade: -35deg;
 
 }
 
-.btn-primary{
+.btn-primary {
   background-color: #e61a27;
   color: rgba(255, 255, 255, 1);
   font-size: 25px;
 }
-
 
 .panel-default > .panel-heading {
   background-color: #e61a27;
@@ -186,15 +188,16 @@ $grade: -35deg;
   font-size: 20px;
 }
 
-.panel-cocacola{
+.panel-cocacola {
   background-color: #e61a27;
   color: rgba(255, 255, 255, 1);
-padding-top: 20px;
+  padding-top: 20px;
   padding-bottom: 20px;
   margin-bottom: 50px;
   border: 1px solid #e61a27;
 
 }
+
 .form-control:focus {
   border-color: #e61a27;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);

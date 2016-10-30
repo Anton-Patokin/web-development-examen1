@@ -38,8 +38,6 @@
 //                        });
 
 
-
-
                     var mousedUp = false;
                     google.maps.event.addListener(map, 'mousedown', function (event) {
                         var google_location_lat = event.latLng.lat();
@@ -53,10 +51,10 @@
                                 $("#formModal").modal('show');
                                 $(".ajax_btn").click(function (e) {
                                     e.preventDefault();
-                                    var name= $("input[name='name']" ).val();
-                                    var address =$("input[name='address']" ).val();
-                                    var location =$("input[name='location']" ).val();
-                                    placeMarker(google_location_lat,google_location_lng,name,address,location);
+                                    var name = $("input[name='name']").val();
+                                    var address = $("input[name='address']").val();
+                                    var location = $("input[name='location']").val();
+                                    placeMarker(google_location_lat, google_location_lng, name, address, location);
                                 })
 
 //                                console.log("google maps long click");
@@ -97,13 +95,8 @@
                     }
                 }
 
-                function placeMarker(lat,lng,name,address,location_persoon) {
-                    var location = {lat:lat,lng:lng};
-                    var marker = new google.maps.Marker({
+                function placeMarker(lat, lng, name, address, location_persoon) {
 
-                        position: location,
-                        map: map
-                    });
 
                     $.ajax({
                         url: 'play-contest',
@@ -111,9 +104,9 @@
                         data: {
                             lat: lat,
                             lng: lng,
-                            name:name,
-                            address:address,
-                            location:location_persoon
+                            name: name,
+                            address: address,
+                            location: location_persoon
                         }
 
 //                        success: function (response) {
@@ -122,17 +115,43 @@
 //                        error: function () {
 //                            console.log("er ging iets fout met post variabelle google maps");
 //                        }
-                    }).done(function( data ) {
+                    }).done(function (data) {
+
+
                         console.log("post van location is goed doorgekomen", data);
-                            }).fail(function(jqXHR, textStatus, errorThrown) {
-                                var responseMsg = jQuery.parseJSON(jqXHR.responseText);
-                                var errorMsg = 'There was a general problem with your request';
-                                if (responseMsg) {
-                                    for(var i =0 ;i< responseMsg.length; i++){
-                                        
-                                    }
-                                }
+
+                        if(data.succes){
+                            $("#formModal").modal('hide');
+                            $(".distance").html(data.succes.distance);
+                            
+                        }
+                        if (data != "error") {
+
+                            var location = {lat: lat, lng: lng};
+                            var marker = new google.maps.Marker({
+                                position: location,
+                                map: map
                             });
+                        }else{
+                            $(".error").append("<p class='alert alert-danger'>You may play only once </p>");
+                        }
+
+
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        var responseMsg = jQuery.parseJSON(jqXHR.responseText);
+                        var errorMsg = 'There was a general problem with your request';
+                        if (responseMsg) {
+                            $(".error").html("");
+                            $.each(responseMsg, function (index, value) {
+                                console.log(index + ": " + value);
+
+                                $(".error").append("<p class='alert alert-danger'>" + index + ": " + value + "</p>");
+                            });
+
+
+                        }
+                        console.log(responseMsg);
+                    });
 
                 }
 
@@ -173,12 +192,19 @@
             <h1>where you think first coca cola was bottled?</h1>
             <p>Put your pin on google maps, closest 6 people wins. You can set pin on same locations as others</p>
         </div>
-        <div id="area" class="col-md-12">
+        <div id="area" class="col-md-3 top10">
+            <h3>10 closest distance</h3>
+            <ol>
+                @foreach($top10 as $key =>$value)
+                   <li><strong>{{$key}}:</strong> <i class="pull-right">{{$value }} km</i> </li>
+                @endforeach
+                    <strong>Your place</strong> <i class="pull-right distance"></i>
+            </ol>
+        </div>
+        <div id="area" class="col-md-9">
             <div id="map"></div>
         </div>
     </div>
-
-
 
     <div class="modal fade" id="formModal" role="dialog">
         <div class="modal-dialog">
@@ -190,13 +216,16 @@
                     <h4 class="modal-title">Fill your personal information </h4>
                 </div>
                 <div class="modal-body">
+                    <div class="error">
 
+                    </div>
 
                     {{Form::open(['url' => ''])}}
                     {{Form::token()}}
                     <div class="form-group col-md-12">
                         {{Form::label('name', 'What is your name?', ['class' => 'awesome'])}}
                         {{ Form::text('name', '', array('class' => 'form-control')) }}
+
                     </div>
                     <div class="form-group col-md-12">
                         {{Form::label('address', 'What is your address?', ['class' => 'awesome'])}}

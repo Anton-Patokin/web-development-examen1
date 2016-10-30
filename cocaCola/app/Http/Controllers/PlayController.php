@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
 
-
 class PlayController extends Controller
 {
 
@@ -38,6 +37,21 @@ class PlayController extends Controller
         if (!($project = $this->_contest->get_contest())) {
             Session::flash('message', 'Sorry but today there are no contests. Check play date at the bottom of the page.');
             return redirect('/');
+        }
+        if ($project->type == 'Google-maps') {
+            $top10 = Googlelocation::orderBy('distance', 'ASC')->take(10)->get();
+
+
+            $array = [];
+
+            foreach ($top10 as $top) {
+                $user = $top->user()->get()[0];
+
+                //return User::where('id',$user->id);
+                $participant = $user->get_participant()->get()[0]->name;
+                $array = array_add($array, $participant, $top->distance);
+            }
+            return view('/play/' . $project->type, ['contest' => $project, 'top10' => $array]);
         }
 
         return view('/play/' . $project->type, ['contest' => $project]);
@@ -106,11 +120,10 @@ class PlayController extends Controller
     {
 
 
-
         $rules = array('lat' => 'required|unique:googlelocations|max:25',
             'lng' => 'required|unique:googlelocations|max:25',
-            'name'=>'required|max:100','address'=>'required|max:255',
-            'location'=>'required|max:100');
+            'name' => 'required|max:100', 'address' => 'required|max:255',
+            'location' => 'required|max:100');
 
 
 //
@@ -128,12 +141,12 @@ class PlayController extends Controller
 
 
         // win location lat 32.317838 lng -90.886714
-        $this->validate($request,$rules);
-
-        return "okey";
+        $this->validate($request, $rules);
 
 
         if (count(Auth::user()->usergooglelocations()->get()) < "1") {
+
+
             $contest_dystance = new order_contest();
             $distance = $contest_dystance->DistAB($request->lat, $request->lng, "32.317838", "-90.886714");
 
@@ -144,9 +157,22 @@ class PlayController extends Controller
             $location->user_id = Auth::id();
             $location->distance = floatval($distance);
             $location->save();
+
+            $partisipant = new Participant();
+            $partisipant->ip_adres = $request->ip();
+            $partisipant->name = $request->name;
+            $partisipant->address = $request->address;
+            $partisipant->location = $request->location;
+            $partisipant->email = Auth::user()->email;
+            $partisipant->user_id = Auth::id();
+
+            $this->_contest->get_contest()->participants()->save($partisipant);
+
+        }else{
+            return "error";
         }
 
-        return "succes";
+        return $array = array('succes' => array('distance' => $distance,'place'=>"10"));
     }
 
 }
