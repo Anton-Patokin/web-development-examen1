@@ -29,7 +29,7 @@ Route::get('/contastant/download_excel/{name}','Contest_admin@download_excelCont
 Route::get('/test','Contest_admin@test');
 Route::get('/play-contest/{var}', 'PlayController@google_maps_logica');
 
-
+Route::get('/apartisipan-information', 'PlayController@show_Partisipant_vieuw');
 
 
 //contest vieuw
@@ -44,5 +44,6 @@ Route::post('/contest_datums','Contest_admin@seCourenturentContest');
 Route::post('/contest_datums/update/id/{id}','Contest_admin@updateNowCourenturentContest');
 
 Route::post('/apartisipan-information', 'PlayController@code');
-Route::get('/apartisipan-information', 'PlayController@show_Partisipant_vieuw');
+Route::post('/play-contest', 'PlayController@google_maps_logica_post');
+
 

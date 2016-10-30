@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Contest;
 use App\Classes\order_contest;
 use App\Participant;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
 class PlayController extends Controller
@@ -94,6 +95,13 @@ class PlayController extends Controller
             return "okey";
         }
         return "google maps controller";
+    }
+    public  function  google_maps_logica_post(Request $request){
+
+        $post = $request->lat;
+
+
+        return  $post;
     }
 
 }
