@@ -15,5 +15,10 @@ class Contest extends Model
         return $this->belongsToMany('App\Participant');
     }
 
+    public function contestgooglelocations()
+    {
+        return $this->hasMany('App\Googlelocation');
+    }
+
     protected $dates = ['deleted_at'];
 }

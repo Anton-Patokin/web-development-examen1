@@ -27,7 +27,7 @@ Route::get('/contastant/download_excel/{name}','Contest_admin@download_excelCont
 
 
 Route::get('/test','Contest_admin@test');
-
+Route::get('/play-contest/{var}', 'PlayController@google_maps_logica');
 
 
 
@@ -45,4 +45,4 @@ Route::post('/contest_datums/update/id/{id}','Contest_admin@updateNowCourenturen
 
 Route::post('/apartisipan-information', 'PlayController@code');
 Route::get('/apartisipan-information', 'PlayController@show_Partisipant_vieuw');
-Route::post('/apartisipan-information/{code_view}', 'PlayController@logica');
+

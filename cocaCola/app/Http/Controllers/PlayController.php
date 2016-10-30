@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Googlelocation;
+use App\User;
 use Illuminate\Http\Request;
 use App\Contest;
 use App\Classes\order_contest;
@@ -17,7 +19,11 @@ class PlayController extends Controller
     {
         $this->_contest = new order_contest();
 
-        $this->middleware('auth');
+        if (($this->_contest->get_contest()) && $this->_contest->get_contest()->type == "Google-maps") {
+            $this->middleware('auth');
+        }
+
+        //$this->middleware('auth');
 //        $this->middleware('isAdmin');
     }
 
@@ -29,6 +35,7 @@ class PlayController extends Controller
             Session::flash('message', 'Sorry but today there are no contests. Check play date at the bottom of the page.');
             return redirect('/');
         }
+
         return view('/play/' . $project->type, ['contest' => $project]);
 
         //return view('/play/play-contest', ['wedstrijd' => Contestdatums::all()]);
@@ -79,33 +86,14 @@ class PlayController extends Controller
 //        return view('/play/partisipan_info')->with("code", $request->code)->with("type", "code");
 //    }
 
-    public function logica($type, Request $request)
+    public function google_maps_logica($var)
     {
-        return redirect("/apartisipan-information");
-        $this->validate($request, [
-            'name' => 'required|min:6|max:255',
-            'address' => 'required|min:6|max:255',
-            'location' => 'required|min:6|max:255',
-            'email' => 'required|email|unique:participants',
-        ]);
-        return "okeey";
-        if ($type == "code") {
-            $this->validate($request, [
-                'code' => 'required|max:6|min:6',
-            ]);
+        if($var == "pins"){
+           // return Googlelocation::all();
+            return $this->_contest->get_contest()->contestgooglelocations()->get();
+            return "okey";
         }
-
-
-        $participant = new Participant();
-        $participant->ipAdres = $request->contestName;
-        $participant->name = $request->name;
-        $participant->adres = $request->address;
-        $participant->location = $request->location;
-        $participant->email = $request->contestType;
-        $participant->Contestdatums_id = $request->contestType;
-        $participant->save();
-
-        return redirect('/');
+        return "google maps controller";
     }
 
 }
