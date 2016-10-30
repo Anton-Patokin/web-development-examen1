@@ -172,7 +172,8 @@ class PlayController extends Controller
             return "error";
         }
 
-        return $array = array('succes' => array('distance' => $distance,'place'=>"10"));
+        $place = Googlelocation::orderBy('distance', 'ASC')->get()->where('distance', '>=', $location->distance )->count();
+        return $array = array('succes' => array('distance' => $distance,'place'=>$place));
     }
 
 }

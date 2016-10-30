@@ -14,7 +14,7 @@
 
     <script>
         $(document).ready(function () {
-
+            $(".place").hide();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -122,7 +122,8 @@
 
                         if(data.succes){
                             $("#formModal").modal('hide');
-                            $(".distance").html(data.succes.distance);
+
+                            $(".place").html(data.succes.place).append('<strong>Your distance</strong> <i class="pull-right distance">'+data.succes.distance+'</i>').show();
                             
                         }
                         if (data != "error") {
@@ -198,7 +199,7 @@
                 @foreach($top10 as $key =>$value)
                    <li><strong>{{$key}}:</strong> <i class="pull-right">{{$value }} km</i> </li>
                 @endforeach
-                    <strong>Your place</strong> <i class="pull-right distance"></i>
+                    <div class="place"></div>
             </ol>
         </div>
         <div id="area" class="col-md-9">
