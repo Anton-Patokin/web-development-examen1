@@ -65,12 +65,18 @@ class Contest_cronJob extends Command
         $end_contest_date = Carbon::parse($contest_now = $this->_active_Contest->get_contest()->date_end)->startOfDay();
         $today = Carbon::now()->startOfDay()->tomorrow();
         if ($end_contest_date == $today) {
+
+
+            $send_to = $this->_active_Contest->get_contest()->email;
+
             if ($this->_active_Contest->get_contest()->type == "code") {
+
+
 
                 $win_partisipants = $this->_active_Contest->get_contest()->participants()->get()->random(3);
 
-                Mail::send('email.winParticipants', ['participants' => $win_partisipants, 'contest' => $contest_now = $this->_active_Contest->get_contest()], function ($message) {
-                    $message->to('paraplu@list.ru', 'paraplu')->subject("test laravel");
+                Mail::send('email.winParticipants', ['participants' => $win_partisipants, 'contest' => $contest_now = $this->_active_Contest->get_contest()], function ($message) use($send_to) {
+                    $message->to($send_to, 'paraplu')->subject("test laravel");
                 });
             } elseif ($this->_active_Contest->get_contest()->type == "Google-maps") {
 
@@ -78,7 +84,7 @@ class Contest_cronJob extends Command
                 if ($top10 = Googlelocation::orderBy('distance', 'ASC')->take(10)->get()){
                     $array = [];
 
-                    
+
                     foreach ($top10 as $top) {
 
                         $user = $top->user()->get()[0];
@@ -91,10 +97,10 @@ class Contest_cronJob extends Command
                     $win_partisipants = $array;
                     //print_r($win_partisipants);
 
-                    $send_to = $this->_active_Contest->get_contest()->email;
-                    echo $send_to;
-                    Mail::send('email.winParticipants', ['participants' => $win_partisipants, 'contest' => $contest_now = $this->_active_Contest->get_contest()], function ($message) {
-                        $message->to('paraplu@list.ru', 'paraplu')->subject("test laravel");
+
+
+                    Mail::send('email.winParticipants', ['participants' => $win_partisipants, 'contest' => $contest_now = $this->_active_Contest->get_contest()], function ($message) use ($send_to) {
+                        $message->to($send_to, 'paraplu')->subject("test laravel");
                     });
                 }
 
