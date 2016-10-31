@@ -39,7 +39,7 @@
         </div>
         <div class="row banner-contests">
             <div class="col-md-12 banner">
-                <h1><strong>4</strong> seasons, <strong>4</strong> different contests</h1>
+                <h1>Play <strong>{{count($contests)}}</strong> different dates</h1>
 
                 @foreach($contests as $contest)
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use app\Classes\order_contest;
+use App\User;
 use Illuminate\Http\Request;
 use Collective\Html\Eloquent\FormAccessible;
 use App\Http\Requests;
@@ -10,6 +12,7 @@ use App\Contest;
 use App\Participant;
 use Excel;
 use App\Classes\timeClasses;
+use App\Googlelocation;
 
 
 class Contest_admin extends Controller
@@ -54,6 +57,7 @@ class Contest_admin extends Controller
             'contestDateStart' => 'required|date',
             'contestDateEnd' => 'required|date',
             'contestType' => 'required',
+            'email'=>'required|email|max:100|'
         ]);
 
         $pricesClass = new timeClasses();
@@ -67,6 +71,7 @@ class Contest_admin extends Controller
                 $Contestdatum->date_start = $request->contestDateStart;
                 $Contestdatum->date_end = $request->contestDateEnd;
                 $Contestdatum->type = $request->contestType;
+                $Contestdatum->email = $request->email;
                 $Contestdatum->save();
             }
         }
@@ -99,6 +104,7 @@ class Contest_admin extends Controller
             'contestDateStart' => 'required|date',
             'contestDateEnd' => 'required|date',
             'contestType' => 'required',
+            'email'=>'required|max:100|email'
         ]);
 
 
@@ -111,6 +117,7 @@ class Contest_admin extends Controller
             $contests->date_start = $request->contestDateStart;
             $contests->date_end = $request->contestDateEnd;
             $contests->type = $request->contestType;
+            $contests->email = $request->email;
             $contests->save();
         }
 
@@ -142,7 +149,17 @@ class Contest_admin extends Controller
     public function deleteContestant($id)
     {
         if ($partisepant = Participant::find($id)) {
+
+
+            if($partisepant->user_id){
+                User::where('id',$partisepant->user_id)->first()->usergooglelocations()->delete();
+                User::where('id',$partisepant->user_id)->delete();
+
+
+            }
+
             $partisepant->delete();
+
         };
 
         return redirect('/contastant');

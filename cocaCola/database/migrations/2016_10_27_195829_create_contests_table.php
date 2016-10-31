@@ -18,6 +18,7 @@ class CreateContestsTable extends Migration
             $table->string('name');
             $table->date('date_start');
             $table->date('date_end');
+            $table->string('email');
             $table->string('type');
             $table->softDeletes();
             $table->timestamps();

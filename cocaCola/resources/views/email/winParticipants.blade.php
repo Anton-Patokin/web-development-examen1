@@ -20,41 +20,43 @@
                     <th>Email</th>
                 </tr>
                 </thead>
-                @if(count($participants)==0)
-                    <h1>No participants</h1>
-                @elseif( count($participants)>1)
-                    @foreach($participants as $participant)
+                @if(isset($participants))
+                    @if(count($participants)==0)
+                        <h1>No participants</h1>
+                    @elseif( count($participants)>1)
+                        @foreach($participants as $participant)
+                            <tr>
+                                <td align="center" valign="top">
+                                    {{$participant->name}}
+                                </td>
+                                <td align="center" valign="top">
+                                    {{$participant->address}}
+                                </td>
+                                <td align="center" valign="top">
+                                    {{$participant->location}}
+                                </td>
+                                <td align="center" valign="top">
+                                    {{$participant->email}}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+
                         <tr>
                             <td align="center" valign="top">
-                                {{$participant->name}}
+                                {{$participants->name}}
                             </td>
                             <td align="center" valign="top">
-                                {{$participant->address}}
+                                {{$participants->address}}
                             </td>
                             <td align="center" valign="top">
-                                {{$participant->location}}
+                                {{$participants->location}}
                             </td>
                             <td align="center" valign="top">
-                                {{$participant->email}}
+                                {{$participants->email}}
                             </td>
                         </tr>
-                    @endforeach
-                @else
-
-                    <tr>
-                        <td align="center" valign="top">
-                            {{$participants->name}}
-                        </td>
-                        <td align="center" valign="top">
-                            {{$participants->address}}
-                        </td>
-                        <td align="center" valign="top">
-                            {{$participants->location}}
-                        </td>
-                        <td align="center" valign="top">
-                            {{$participants->email}}
-                        </td>
-                    </tr>
+                    @endif
                 @endif
             </table>
         </td>

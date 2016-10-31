@@ -10,7 +10,8 @@
                 <th>Contest name</th>
                 <th>Start date</th>
                 <th>End fate</th>
-                <th>Contest type
+                <th>Contest type</th>
+                <th>Email</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
@@ -23,6 +24,7 @@
                     <td>{{$contest->date_start}}</td>
                     <td>{{$contest->date_end}}</td>
                     <td>{{$contest->type}}</td>
+                    <td>{{$contest->email}}</td>
                     <td><a href="contest_datums/update/{{$contest->id}}"><span>Update</span></a></td>
                     <td><a href="contest_datums/delete/{{$contest->id}}"><span>Delete</span></a></td>
 
@@ -82,6 +84,10 @@
                 <div class="form-group col-md-6">
                     {{Form::label('contestDateEnd', 'End date', ['class' => 'awesome'])}}
                     {{Form::date('contestDateEnd', \Carbon\Carbon::now(),['class' => 'form-control'])}}
+                </div>
+                <div class="form-group col-md-6">
+                    {{Form::label('email', 'email to send updates to', ['class' => 'awesome'])}}
+                    {{ Form::text('email', '', array('class' => 'form-control')) }}
                 </div>
                 <div class="col-md-12">
                     {{Form::submit('Add',['class' => 'btn btn-primary'])}}

@@ -75,25 +75,30 @@ class Contest_cronJob extends Command
             } elseif ($this->_active_Contest->get_contest()->type == "Google-maps") {
 
 
-                $top10 = Googlelocation::orderBy('distance', 'ASC')->take(10)->get();
+                if ($top10 = Googlelocation::orderBy('distance', 'ASC')->take(10)->get()){
+                    $array = [];
 
+                    
+                    foreach ($top10 as $top) {
 
-                $array = [];
+                        $user = $top->user()->get()[0];
 
-                foreach ($top10 as $top) {
+                        //return User::where('id',$user->id);
+                        $participant = $user->get_participant()->get()[0];
+                        array_push($array, $participant);
+                    }
+                    //print_r($array);
+                    $win_partisipants = $array;
+                    //print_r($win_partisipants);
 
-                    $user = $top->user()->get()[0];
-
-                    //return User::where('id',$user->id);
-                    $participant = $user->get_participant()->get()[0];
-                    array_push($array, $participant);
+                    $send_to = $this->_active_Contest->get_contest()->email;
+                    echo $send_to;
+                    Mail::send('email.winParticipants', ['participants' => $win_partisipants, 'contest' => $contest_now = $this->_active_Contest->get_contest()], function ($message) {
+                        $message->to('paraplu@list.ru', 'paraplu')->subject("test laravel");
+                    });
                 }
-                //print_r($array);
-                $win_partisipants = $array;
-                //print_r($win_partisipants);
-                Mail::send('email.winParticipants', ['participants' => $win_partisipants, 'contest' => $contest_now = $this->_active_Contest->get_contest()], function ($message) {
-                    $message->to('paraplu@list.ru', 'paraplu')->subject("test laravel");
-                });
+
+
             }
         }
 

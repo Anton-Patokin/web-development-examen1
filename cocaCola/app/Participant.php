@@ -13,6 +13,10 @@ class Participant extends Model
     {
         return $this->belongsToMany('App\Contest');
     }
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
 
     protected $dates = ['deleted_at'];
 }
