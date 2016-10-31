@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Googlelocation;
 use Illuminate\Console\Command;
 use App\Classes\order_contest;
 use App\Contest;
@@ -9,6 +10,7 @@ use Carbon\Carbon;
 use App\Participant;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use App\User;
 
 class Contest_cronJob extends Command
 {
@@ -53,22 +55,49 @@ class Contest_cronJob extends Command
 
         if (DB::select($query)) {
             $participants = DB::select($query);
-            Mail::send('email.email', ['participants' => $participants, 'contest'=>$contest_now=$this->_active_Contest->get_contest()], function ($message) {
+            Mail::send('email.email', ['participants' => $participants, 'contest' => $contest_now = $this->_active_Contest->get_contest()], function ($message) {
                 $message->to('paraplu@list.ru', 'paraplu')->subject("test laravel");
             });
-            echo "vandag hebben ".count(DB::select($query))." gerigistreerd";
+            echo "vandag hebben " . count(DB::select($query)) . " gerigistreerd";
         }
 
 
         $end_contest_date = Carbon::parse($contest_now = $this->_active_Contest->get_contest()->date_end)->startOfDay();
         $today = Carbon::now()->startOfDay()->tomorrow();
         if ($end_contest_date == $today) {
-           $win_partisipants = $this->_active_Contest->get_contest()->participants()->get()->random(3);
-            echo  $win_partisipants;
-            Mail::send('email.winParticipants', ['participants' => $win_partisipants, 'contest'=>$contest_now=$this->_active_Contest->get_contest()], function ($message) {
-                $message->to('paraplu@list.ru', 'paraplu')->subject("test laravel");
-            });
+            if ($this->_active_Contest->get_contest()->type == "code") {
+
+                $win_partisipants = $this->_active_Contest->get_contest()->participants()->get()->random(3);
+
+                Mail::send('email.winParticipants', ['participants' => $win_partisipants, 'contest' => $contest_now = $this->_active_Contest->get_contest()], function ($message) {
+                    $message->to('paraplu@list.ru', 'paraplu')->subject("test laravel");
+                });
+            } elseif ($this->_active_Contest->get_contest()->type == "Google-maps") {
+
+
+                $top10 = Googlelocation::orderBy('distance', 'ASC')->take(10)->get();
+
+
+                $array = [];
+
+                foreach ($top10 as $top) {
+
+                    $user = $top->user()->get()[0];
+
+                    //return User::where('id',$user->id);
+                    $participant = $user->get_participant()->get()[0];
+                    array_push($array, $participant);
+                }
+                //print_r($array);
+                $win_partisipants = $array;
+                //print_r($win_partisipants);
+                Mail::send('email.winParticipants', ['participants' => $win_partisipants, 'contest' => $contest_now = $this->_active_Contest->get_contest()], function ($message) {
+                    $message->to('paraplu@list.ru', 'paraplu')->subject("test laravel");
+                });
+            }
         }
+
+        echo "cron job werkt";
 
         //echo  $contest_now=$this->_active_Contest->get_contest();
 
