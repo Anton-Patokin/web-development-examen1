@@ -21,9 +21,9 @@ Route::get('/contest','Contest_admin@index');
 Route::get('/contest_datums/update/{id}','Contest_admin@updateCourenturentContest');
 Route::get('/contest_datums/delete/{id}','Contest_admin@deleteCourenturentContest');
 
-Route::get('/contastant','Contest_admin@showContestant');
+Route::get('/contastant/{id}','Contest_admin@showContestant');
 Route::get('/contastant/delete/{id}','Contest_admin@deleteContestant');
-Route::get('/contastant/download_excel/{name}','Contest_admin@download_excelContestant');
+Route::get('/contastant/download_excel/{id}','Contest_admin@download_excelContestant');
 
 
 Route::get('/test','Contest_admin@test');

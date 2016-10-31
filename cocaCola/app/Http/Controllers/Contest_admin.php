@@ -13,6 +13,7 @@ use App\Participant;
 use Excel;
 use App\Classes\timeClasses;
 use App\Googlelocation;
+use Illuminate\Support\Facades\DB;
 
 
 class Contest_admin extends Controller
@@ -34,7 +35,7 @@ class Contest_admin extends Controller
 
     public function test()
     {
-
+        return var_dump();
 
         //Mailer::to('paraplu@list.ru')->send(new ContestMail());
 //        Mail::send('email.email', ['title' => "paraplu"], function ($message) {
@@ -57,7 +58,7 @@ class Contest_admin extends Controller
             'contestDateStart' => 'required|date',
             'contestDateEnd' => 'required|date',
             'contestType' => 'required',
-            'email'=>'required|email|max:100|'
+            'email' => 'required|email|max:100|'
         ]);
 
         $pricesClass = new timeClasses();
@@ -104,7 +105,7 @@ class Contest_admin extends Controller
             'contestDateStart' => 'required|date',
             'contestDateEnd' => 'required|date',
             'contestType' => 'required',
-            'email'=>'required|max:100|email'
+            'email' => 'required|max:100|email'
         ]);
 
 
@@ -133,17 +134,19 @@ class Contest_admin extends Controller
         return redirect("/contest");
     }
 
-    public function showContestant()
+    public function showContestant($project_id)
     {
 
+//        $array = [];
+//        $contests = Contest::all();
+//        foreach ($contests as $contest) {
+//            //return Contestdatums::find($contest->id)->participants()->get();
+//            $array = array_add($array, $contest->name, Contest::find($contest->id)->participants()->get());
+//        }
 
-        $array = [];
-        $contests = Contest::all();
-        foreach ($contests as $contest) {
-            //return Contestdatums::find($contest->id)->participants()->get();
-            $array = array_add($array, $contest->name, Contest::find($contest->id)->participants()->get());
-        }
-        return view("admin/users", ['contests' => $array]);
+        $contest = Contest::where('id', $project_id)->first();
+        $pagination_partisipant = $contest->participants()->paginate(15);
+        return view("admin/users", ['contest' => $contest, 'participants' => $pagination_partisipant]);
     }
 
     public function deleteContestant($id)
@@ -151,9 +154,9 @@ class Contest_admin extends Controller
         if ($partisepant = Participant::find($id)) {
 
 
-            if($partisepant->user_id){
-                User::where('id',$partisepant->user_id)->first()->usergooglelocations()->delete();
-                User::where('id',$partisepant->user_id)->delete();
+            if ($partisepant->user_id) {
+                User::where('id', $partisepant->user_id)->first()->usergooglelocations()->delete();
+                User::where('id', $partisepant->user_id)->delete();
 
 
             }
@@ -162,14 +165,14 @@ class Contest_admin extends Controller
 
         };
 
-        return redirect('/contastant');
+        return back();
     }
 
-    public function download_excelContestant($name)
+    public function download_excelContestant($id_contest)
     {
 
-        if (Contest::where('name', $name)->first()) {
-            $get_participants = Contest::where('name', $name)->first()->participants()->get();
+        if ($contest = Contest::where('id', $id_contest)->first()) {
+            $get_participants = $contest->first()->participants()->get();
             Excel::create('contest', function ($excel) use ($get_participants) {
 
                 $excel->sheet('participants', function ($sheet) use ($get_participants) {

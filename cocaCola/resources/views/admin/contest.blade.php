@@ -20,7 +20,7 @@
 
             @foreach ($contests as $contest)
                 <tr>
-                    <td>{{$contest->name}}</td>
+                    <td><a href="{{ url('/contastant/'.$contest->id)}}">{{$contest->name}}</a></td>
                     <td>{{$contest->date_start}}</td>
                     <td>{{$contest->date_end}}</td>
                     <td>{{$contest->type}}</td>

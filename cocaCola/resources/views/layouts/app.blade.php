@@ -50,7 +50,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="image/cocacola_PNG14.png">
+                    <img src="{{ url('/image/cocacola_PNG14.png') }}  ">
                 </a>
             </div>
 
@@ -72,9 +72,9 @@
                         <li class="{{ Request::is('contest') ? 'active' : '' }}">
                             <a href="{{ url('/contest') }}">Contest</a>
                         </li>
-                        <li class="{{ Request::is('contastant') ? 'active' : '' }}">
-                            <a href="{{ url('/contastant') }}">Contastant</a>
-                        </li>
+                        {{--<li class="{{ Request::is('contastant') ? 'active' : '' }}">--}}
+                            {{--<a href="{{ url('/contastant') }}">Contastant</a>--}}
+                        {{--</li>--}}
                         @endif
                                 <!-- Authentication Links -->
                         @if (Auth::guest())

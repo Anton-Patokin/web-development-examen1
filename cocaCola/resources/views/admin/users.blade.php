@@ -8,47 +8,50 @@
         }
     </style>
     <div class="container banner-code">
-        @if(! empty($contests) && count($contests) > 0)
+        @if(! empty($contest))
             <h1>Users</h1>
 
 
-            @foreach ($contests as  $key => $contest)
-                <div class="row name">
-                    <div class="col-md-11">
-                        <h1>{{$key}} </h1>
-                    </div>
-                    <div class="col-md-1">
-                        <a href="contastant/download_excel/{{$key}}"><span>excel</span></a>
-                    </div>
+
+            <div class="row name">
+                <div class="col-md-11">
+                    <h1>{{$contest->name}} </h1>
                 </div>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Ip</th>
-                        <th>name</th>
-                        <th>Address</th>
-                        <th>Location</th>
-                        <th>Email</th>
-                        <th>Delete</th>
+                <div class="col-md-1">
+                    <a href="download_excel/{{$contest->id}}"><span>excel</span></a>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Ip</th>
+                    <th>name</th>
+                    <th>Address</th>
+                    <th>Location</th>
+                    <th>Email</th>
+                    <th>Delete</th>
 
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach ($contest as $index => $contestant)
+                </tr>
+                </thead>
+                <tbody>
+                @if( ! empty($participants))
+                    @foreach ($participants as $participant)
                         <tr>
-                            <td>{{$contestant->ipAdres}}</td>
-                            <td>{{$contestant->name}}</td>
-                            <td>{{$contestant->adres}}</td>
-                            <td>{{$contestant->location}}</td>
-                            <td>{{$contestant->email}}</td>
-                            <td><a href="contastant/delete/{{$contestant->id}}"><span>delete</span></a></td>
+                            <td>{{$participant->ipAdres}}</td>
+                            <td>{{$participant->name}}</td>
+                            <td>{{$participant->adres}}</td>
+                            <td>{{$participant->location}}</td>
+                            <td>{{$participant->email}}</td>
+                            <td><a href="{{ url('/contastant/delete/'.$participant->id) }}"><span>delete</span></a></td>
 
                         </tr>
+
                     @endforeach
-                    </tbody>
-                </table>
-            @endforeach
+                    {{ $participants->links() }}
+                @endif
+                </tbody>
+            </table>
 
         @else
             <h1>There no contest</h1>
