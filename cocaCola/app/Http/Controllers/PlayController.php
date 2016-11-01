@@ -22,10 +22,10 @@ class PlayController extends Controller
     {
         $this->_contest = new order_contest();
 
-        if (($this->_contest->get_contest()) && $this->_contest->get_contest()->type == "Google-maps") {
-            $this->middleware('auth');
-        }
-
+//        if (($this->_contest->get_contest()) && $this->_contest->get_contest()->type == "Google-maps") {
+//
+//        }
+        $this->middleware('auth');
         //$this->middleware('auth');
 //        $this->middleware('isAdmin');
     }
@@ -66,16 +66,23 @@ class PlayController extends Controller
         //return  $request->ip();
 
 
-        if (!($project = $this->_contest->get_contest()) || count($this->_contest->get_contest()->participants()->where('ip_adres', $request->ip())->get())) {
-            Session::flash('message', 'you may participate only once');
+//        if (!($project = $this->_contest->get_contest()) || count($this->_contest->get_contest()->participants()->where('ip_adres', $request->ip())->get())) {
+//            Session::flash('message', 'you may participate only once');
+//            return redirect('/');
+//        }
+
+        if (!($project = $this->_contest->get_contest())) {
+            Session::flash('message', 'something went wrong try later');
             return redirect('/');
         }
 
 
+        if (count(Auth::user()->get_participant()->get())) {
+            Session::flash('message', 'you may participate only once');
+            return redirect('/');
+        }
         $this->validate($request, [
             'code' => 'required|max:6|min:6',
-            'name' => 'required|max:100',
-            'email' => 'required|email|max:255|unique:participants',
             'address' => 'required|max:255',
             'location' => 'required',
         ]);
@@ -83,10 +90,11 @@ class PlayController extends Controller
 
         $partisipant = new Participant();
         $partisipant->ip_adres = $request->ip();
-        $partisipant->name = $request->name;
+        $partisipant->name = Auth::user()->name;;
         $partisipant->address = $request->address;
         $partisipant->location = $request->location;
-        $partisipant->email = $request->email;
+        $partisipant->user_id= Auth::id();
+        $partisipant->email = Auth::user()->email;;
 
         $project->participants()->save($partisipant);
 

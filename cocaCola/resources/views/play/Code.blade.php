@@ -44,19 +44,11 @@
                             {{ Form::text('code', '', array('class' => 'form-control')) }}
                         </div>
                         <div class="form-group col-md-12">
-                            {{Form::label('name', 'What is your name?', ['class' => 'awesome'])}}
-                            {{ Form::text('name', '', array('class' => 'form-control')) }}
-                        </div>
-                        <div class="form-group col-md-12">
-                            {{Form::label('email', 'What is your email address', ['class' => 'awesome'])}}
-                            {{ Form::text('email', '', array('class' => 'form-control')) }}
-                        </div>
-                        <div class="form-group col-md-12">
                             {{Form::label('address', 'What is your address?', ['class' => 'awesome'])}}
                             {{ Form::text('address', '', array('class' => 'form-control')) }}
                         </div>
                         <div class="form-group col-md-12">
-                            {{Form::label('location', 'What is your location', ['class' => 'awesome'])}}
+                            {{Form::label('location', 'What is your location?', ['class' => 'awesome'])}}
                             {{ Form::text('location', '', array('class' => 'form-control')) }}
                         </div>
                         <div class="col-md-12">
