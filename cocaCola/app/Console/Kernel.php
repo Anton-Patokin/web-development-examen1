@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
     }
+    //hallo
 
     /**
      * Register the Closure based commands for the application.
