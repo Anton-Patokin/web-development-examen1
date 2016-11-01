@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-        'app\Console\Commands\Contest_cronJob'
+        \App\Console\Commands\Contest_cronJob::class,
     ];
 
     /**
